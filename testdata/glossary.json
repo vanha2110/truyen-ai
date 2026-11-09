@@ -1,0 +1,5 @@
+[
+  {"source":"Lâm Phong","target":"Lâm Phong","kind":"name","locked":true,"priority":10,"variants":["Lam Phong"]},
+  {"source":"Trần Mặc","target":"Trần Mặc","kind":"name","locked":true,"priority":10,"variants":["Tran Mac"]},
+  {"source":"Luyện Khí","target":"Luyện Khí","kind":"realm","locked":true,"priority":5,"variants":["Luyện khí"]}
+]

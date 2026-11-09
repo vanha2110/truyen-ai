@@ -1,0 +1,19 @@
+<!doctype html><html><head><title>Fixture mục lục</title></head><body>
+<h1>Truyện kiểm thử</h1>
+<div class="latest"><a href="/story/chuong-999-extra">Chương 999: Gợi ý ngoài mục lục</a></div>
+<a href="/story/chuong-1-one">Chương 1</a>
+<div id="chapter-list"><div class="clearfix"><ul>
+<li><a href="/story/chuong-1-one">Chương 01: Mở đầu</a></li>
+<li><a href="/story/chuong-2-two">Chương 02: Tiếp theo</a></li>
+</ul></div><div class="paging">
+<a class="active" href="javascript:void(0)">1</a>
+<a href="javascript:void(0)" onclick="page(66163,2);">2</a>
+<a href="javascript:void(0)" onclick="page(66163,3);">Cuối</a>
+</div></div>
+<script>
+function page(t, e) {
+  $.ajax({url: "/get/listchap/" + t + "?page=" + e, type: "GET",
+    success: function(t) { $("#chapter-list").html(t.data); }
+  });
+}
+</script></body></html>

@@ -1,0 +1,16 @@
+.tools/
+.cache/
+build/bin/
+frontend/node_modules/
+frontend/dist/*
+!frontend/dist/.gitkeep
+frontend/wailsjs/
+docs
+*.db
+*.db-shm
+*.db-wal
+*.log
+coverage.out
+*.exe
+.idea
+
