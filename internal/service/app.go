@@ -168,6 +168,32 @@ func (a *App) SaveSource(novel int64, source crawler.Source) error {
 	}
 	return a.Store.PutJSON(fmt.Sprintf("source:%d", novel), source)
 }
+func (a *App) ReloadChapter(id int64, confirmManual bool) error {
+	chapter, err := a.Store.Chapter(id)
+	if err != nil {
+		return err
+	}
+	if chapter.SourceURL == "" {
+		return errors.New("Chương nhập văn bản không có URL để tải lại")
+	}
+	if chapter.ManualEdit && !confirmManual {
+		return errors.New("Chương đã sửa tay; cần xác nhận ghi đè")
+	}
+	source, err := a.Source(chapter.NovelID)
+	if err != nil {
+		return err
+	}
+	ctx, cancel := context.WithTimeout(a.ctx, 2*time.Minute)
+	defer cancel()
+	raw, err := a.crawler.Chapter(ctx, chapter.SourceURL, source)
+	if err != nil {
+		return err
+	}
+	if _, err = a.Store.Backup(); err != nil {
+		return fmt.Errorf("Không sao lưu được trước khi tải lại: %w", err)
+	}
+	return a.Store.ReplaceSourceText(chapter, raw, confirmManual)
+}
 func (a *App) AddSource(preview crawler.Preview, source crawler.Source) (int64, error) {
 	id, err := a.Store.AddNovel(preview.Novel, preview.Chapters)
 	if err != nil {

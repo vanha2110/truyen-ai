@@ -1118,7 +1118,7 @@ td small {
   margin-bottom: 28px;
 }
 .chapter-heading h1 {
-  font-family: Georgia, serif;
+  font-family: inherit;
   font-size: 29px;
   line-height: 1.5;
   font-weight: 500;
@@ -1132,9 +1132,6 @@ td small {
   margin-bottom: 1em;
   white-space: pre-wrap;
 }
-.reader-content .notice {
-  font-family: "Segoe UI", sans-serif;
-}
 .reader-content article {
   text-align: justify;
 }
@@ -1145,7 +1142,6 @@ td small {
   margin-bottom: 26px;
 }
 .reader-edit-actions button {
-  font-family: "Segoe UI", sans-serif;
   font-size: 10px;
   background: transparent;
   border-color: #839a7e22;
@@ -1159,7 +1155,6 @@ td small {
   gap: 30px;
 }
 .parallel-head {
-  font-family: "Segoe UI", sans-serif;
   font-size: 9px;
   letter-spacing: 1.4px;
   color: #92a38f;

@@ -192,37 +192,6 @@ func (c *Crawler) fetch(ctx context.Context, raw string) (*goquery.Document, err
 	return nil, errors.New("Không tải được trang")
 }
 
-func Extract(doc *goquery.Document, source Source) string {
-	doc.Find(source.Remove).Remove()
-	var content *goquery.Selection
-	if source.Content != "" {
-		content = doc.Find(source.Content).First()
-	} else {
-		largest := 0
-		doc.Find("article,main,[itemprop=articleBody],.chapter-content,.chapter-c,.truyen,.reading-content,#content,#chapter-c").Each(func(_ int, s *goquery.Selection) {
-			n := textutil.Words(s.Text())
-			if n > largest {
-				largest = n
-				content = s
-			}
-		})
-	}
-	if content == nil || content.Length() == 0 {
-		return ""
-	}
-	content.Find("br").ReplaceWithHtml("\n\n")
-	content.Find("p,div,section").Each(func(_ int, s *goquery.Selection) { s.AppendHtml("\n\n") })
-	lines := []string{}
-	for _, p := range textutil.Paragraphs(content.Text()) {
-		p = strings.Join(strings.Fields(p), " ")
-		low := strings.ToLower(p)
-		if strings.HasPrefix(low, "nguồn:") || strings.HasPrefix(low, "quảng cáo") || strings.Contains(low, "https://") || strings.Contains(low, "http://") {
-			continue
-		}
-		lines = append(lines, p)
-	}
-	return strings.Join(lines, "\n\n")
-}
 func (c *Crawler) Chapter(ctx context.Context, raw string, source Source) (string, error) {
 	doc, err := c.fetch(ctx, raw)
 	if err != nil {

@@ -37,7 +37,6 @@ export function Reader({
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
   const [selection, setSelection] = useState("");
-  const [font, setFont] = useState("serif");
   const task = useTask();
   const scroll = useRef<HTMLDivElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -185,14 +184,6 @@ export function Reader({
             <option value="light">Sáng</option>
             <option value="dark">Tối</option>
           </select>
-          <select
-            value={font}
-            onChange={(e) => setFont(e.target.value)}
-            aria-label="Phông chữ"
-          >
-            <option value="serif">Serif</option>
-            <option value="sans-serif">Sans serif</option>
-          </select>
           <label className="range-label">
             Aa
             <input
@@ -251,10 +242,6 @@ export function Reader({
               style={{
                 fontSize: size,
                 lineHeight,
-                fontFamily:
-                  font === "serif"
-                    ? 'Georgia, "Times New Roman", serif'
-                    : '"Segoe UI", sans-serif',
               }}
             >
               <div className="chapter-heading">

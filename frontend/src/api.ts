@@ -28,6 +28,7 @@ interface Backend {
   AddSource(preview: Preview, source: Source): Promise<number>;
   Source(novel: number): Promise<Source>;
   SaveSource(novel: number, source: Source): Promise<void>;
+  ReloadChapter(id: number, confirmManual: boolean): Promise<void>;
   AddJob(
     novel: number,
     from: number,

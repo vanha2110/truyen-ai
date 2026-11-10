@@ -511,6 +511,26 @@ export function NovelPage({
                       <small>{ch.modelUsed || "—"}</small>
                     </td>
                     <td>
+                      {ch.sourceUrl && (
+                        <button
+                          className="text-button"
+                          disabled={task.busy}
+                          onClick={() => {
+                            if (
+                              window.confirm(
+                                `Tải lại nội dung gốc từ website cho “${ch.title}”? Bản biên tập${ch.manualEdit ? " đã sửa tay" : ""} sẽ được đặt lại để biên tập từ đầu. App sao lưu trước khi thay đổi. Hãy hủy job của chương trước khi tải lại.`,
+                              )
+                            ) {
+                              void task.run(async () => {
+                                await api().ReloadChapter(ch.id, ch.manualEdit);
+                                await refresh();
+                              }, "Đã tải lại nội dung gốc. Có thể biên tập lại chương.");
+                            }
+                          }}
+                        >
+                          Tải lại gốc
+                        </button>
+                      )}
                       <button
                         className="icon"
                         title={
@@ -550,7 +570,8 @@ export function NovelPage({
           <div className="form">
             <p className="hint">
               Tạm dừng rồi tiếp tục job để dùng selector mới. Nội dung đã tải
-              được giữ nguyên.
+              được giữ nguyên; dùng “Tải lại gốc” ở danh sách chương để lấy lại
+              nội dung bằng cấu hình mới.
             </p>
             {(
               [
